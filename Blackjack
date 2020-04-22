@@ -1,0 +1,12 @@
+import random
+
+bet = 200
+
+def start():
+  print("Let's play Blackjack with HUIKIMS!")
+  print("You begin with" + str(bet) + "dollars")
+  a = input("Please type 'y' if you want to proceed")
+  if a == 'y':
+    play()
+
+def play():

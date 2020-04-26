@@ -10,3 +10,115 @@ def start():
     play()
 
 def play():
+  MyHand=[]
+  DealerHand=[]
+  CurrentValue=[]
+  MyHandValue=[]
+  DealerHandValue=[]
+  MyBurst=[]
+  DealerBurst=[]
+  global bet
+  userbet=int(input("How much will you bet?"))
+  if userbet>bet:
+    userbet=int(input("You can bet less than what you have. How much will you bet?"))
+    
+  MyHand.append(deal(currDeck))
+  DealerHand.append(deal(currDeck))
+  MyHand.append(deal(currDeck))
+  DealerHand.append(deal(currDeck))
+  
+  print("Your first deck: " +str(MyHand))
+  
+  MyHandValue=CalcMyHand(MyHand)
+  DealerHandValue=CalcDealerHand(DealerHand)
+  
+  if MyBurst==True and DealerBurst==False:
+    bet=bet-userbet
+    print("You bursted; you lost!")
+    print("Your total deck: " +str(MyHand)+ "and Your total is: " +str(CalcMyHand(MyHand))
+    print("On dealer's hand: " +str(DealerHand)+ "Dealer total is:" +str(CalcDealerHand(DealerHand))
+    if bet<=0:
+      print("You lost all. Bankruptcy!")
+      if input("Do you want to resume play? Hit y to play. \nYou start with $200 \n")=='y'
+        bet=200
+        return play()
+      else:
+        return
+    else:
+      print("You have " +str(bet)+ "dollars remaining.")
+      return play()
+    if MyBurst==True and DealerBurst==True:
+      bet=bet-userbet
+      print("Both bursted")
+      print("Your total deck: " +str(MyHand)+ "and Your total is: " +str(CalcMyHand(MyHand))
+      print("On dealer's hand: " +str(DealerHand)+ "Dealer total is:" +str(CalcDealerHand(DealerHand))
+      if bet<=0:
+        print("You lost all. Bankruptcy!")
+        if input("Do you want to resume play? Hit y to play. \nYou start with $200 \n")=='y'
+          bet=200
+          return play()
+        else:
+          return
+      else:
+        print("You have " +str(bet)+ "dollars remaining.")
+        return play()
+    if MyBurst==False and DealerBurst==True:
+      bet=bet+(userbet*2)
+      print("Dealer bursted, you won!")
+      print("Your total deck: " +str(MyHand)+ "and Your total is: " +str(CalcMyHand(MyHand))
+      print("On dealer's hand: " +str(DealerHand)+ "Dealer total is:" +str(CalcDealerHand(DealerHand))
+      if bet<=0:
+        print("You lost all. Bankruptcy!")
+        if input("Do you want to resume play? Hit y to play. \nYou start with $200 \n")=='y'
+          bet=200
+          return play()
+        else:
+          return
+      else:
+        print("You have " +str(bet)+ "dollars remaining.")
+        return play()
+    if MyHandValue<DealerHandValue:
+      bet-=userbet
+      print("You lost!")
+      print("Your total deck: " +str(MyHand)+ "and Your total is: " +str(CalcMyHand(MyHand))
+      print("On dealer's hand: " +str(DealerHand)+ "Dealer total is:" +str(CalcDealerHand(DealerHand))
+      if bet<=0:
+        print("You lost all. Bankruptcy!")
+        if input("Do you want to resume play? Hit y to play. \nYou start with $200 \n")=='y'
+          bet=200
+          return play()
+        else:
+          return
+      else:
+        print("You have " +str(bet)+ "dollars remaining.")
+        return play()
+    elif MyHandValue==DealerHandValue:
+      bet=bet-userbet
+      print("You lost")
+      print("Your total deck: " +str(MyHand)+ "and Your total is: " +str(CalcMyHand(MyHand))
+      print("On dealer's hand: " +str(DealerHand)+ "Dealer total is:" +str(CalcDealerHand(DealerHand))
+      if bet<=0:
+        print("You lost all. Bankruptcy!")
+        if input("Do you want to resume play? Hit y to play. \nYou start with $200 \n")=='y'
+          bet=200
+          return play()
+        else:
+          return
+      else:
+        print("You have " +str(bet)+ "dollars remaining.")
+        return play()
+    else:
+      bet=bet+(userbet*2)
+      print("You won!")
+      print("Your total deck: " +str(MyHand)+ "and Your total is: " +str(CalcMyHand(MyHand))
+      print("On dealer's hand: " +str(DealerHand)+ "Dealer total is:" +str(CalcDealerHand(DealerHand))
+      if bet<=0:
+        print("You lost all. Bankruptcy!")
+        if input("Do you want to resume play? Hit y to play. \nYou start with $200 \n")=='y'
+          bet=200
+          return play()
+        else:
+          return
+      else:
+        print("You have " +str(bet)+ "dollars remaining.")
+        return play()

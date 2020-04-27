@@ -122,3 +122,51 @@ def play():
       else:
         print("You have " +str(bet)+ "dollars remaining.")
         return play()
+        
+def calcMyHand(MyHand):
+  total = 0
+  ace = False
+  for i in MyHand:
+    LastLetter=i[-1]
+    if LastLetter=='J' or LastLetter=='Q' or LastLetter=='K':
+      LastLetter = 10
+    elif LastLetter=='A'
+      LastLetter = 11
+      ace = True
+    total+=int(LastLetter)
+  if ace == True and total>21:
+    total -= 10
+  return total
+  
+def calcDealerHand(DealerHand):
+  total = 0
+  ace = False
+  for i in DealerHand:
+    LastLetter = i[-1]
+    if LastLetter=='J' or LastLetter=='Q' or LastLetter=='K':
+      LastLetter = 10
+    elif LastLetter == 'A'
+      LastLetter=11
+      ace=True
+    total += int(LastLetter)
+  if ace==True and total>21:
+    total-=10
+    
+  return total
+  
+def NewDeck():
+  deck = []
+  numbers = {'A':'A','2':'2','3':'3','4':'4','5':'5','6':'6','7':'7','8':'8','9':'9','10':'10','J':'J','Q':'Q','K':'K'}
+  for i in numbers:
+    deck.append('S'+i)
+  for i in numbers:
+    deck.append('H'+i)
+  for i in numbers:
+    deck.append('C'+i)
+  for i in numbers:
+    deck.append('D'+i)
+  return deck
+  
+start()
+
+  

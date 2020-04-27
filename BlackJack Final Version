@@ -1,0 +1,245 @@
+import random
+
+bet=200
+
+def start():
+    print("Let's play Blackjack with HUIKIMS!")
+    print("You begin with" + str(bet) + "dollars")
+    a = input("Please hit 'y' if you want to proceed")
+    if a == 'y':
+        play()
+
+
+def play():
+    mine=[]
+    dealer=[]
+    currentdeck=[]
+    myvalue=0
+    dealervalue=0
+    myburst=False
+    dealerburst=False
+    currentdeck=newdeck()
+    global bet
+    userbet = int(input("How much will you bet?"))
+    if userbet>bet:
+        userbet=int(input("You can bet less than what you have. How much will you bet?"))
+
+
+    mine.append(deal(currentdeck))
+    dealer.append(deal(currentdeck))
+    mine.append(deal(currentdeck))
+    dealer.append(deal(currentdeck))
+
+
+    print("Your hand: " +str(mine))
+
+
+    
+    myvalue=calcmine(mine)
+    dealervalue=calcdealer(dealer)
+    if dealervalue == 21:
+        bet=bet-userbet
+        print("Dealer got blackjack. Not your night!")
+        print("Your hand: " + str(mine)+ " Your total is: "+ str(calcmine(mine)))
+        print("Dealer hand: " + str(dealer)+ " Dealer's total is: "+ str(calcdealer(dealer)))
+        if bet<=0:
+            print("You've run into bankruptcy:(")
+            if input("Hit y to play again. \nYou will restart with 100 dollars \n") == 'y':
+                bet=100
+                return play()
+            else:
+                return
+        else:
+            print("You have "+str(bet)+" dollars remaining.")
+            return play()
+
+    elif myvalue == 21:
+        bet=bet+(userbet*2)
+        print("Black Jack!!! YOU WON")
+        print("Your hand: " + str(mine)+ " Your total is: "+ str(calcmine(mine)))
+        print("Dealer hand: " + str(dealer)+ " Dealer's total is: "+ str(calcdealer(dealer)))
+        print("You have "+str(bet)+" dollars remaining.")
+        return play()
+
+
+    myvalue=calcmine(mine)
+    dealervalue=calcdealer(dealer)
+    while myvalue<21:
+        decision = str(input("Do you want to hit? (y/n): "  ))
+        if decision=="y":
+            mine.append(deal(currentdeck))
+            print(mine)
+            myvalue=calcmine(mine)
+            print("--------------------------------------------------")
+        else:
+            break
+
+    while dealervalue<17:
+        dealer.append(deal(currentdeck))
+        dealervalue=calcdealer(dealer)
+
+
+    myvalue=calcmine(mine)
+    if myvalue>21:
+        myburst=True
+    dealervalue=calcdealer(dealer)
+    if dealervalue>21:
+        dealerburst=True
+
+
+
+    myvalue=calcmine(mine)
+    dealervalue=calcdealer(dealer)
+    
+    if myburst==True and dealerburst==False:
+        bet=bet-userbet
+        print("You bursted: YOU LOST")
+        print("Your hand: " + str(mine)+ " Your total is: "+ str(calcmine(mine)))
+        print("Dealer hand: " + str(dealer)+" Dealer's total is: "+ str(calcdealer(dealer)))
+        if bet<=0:
+            print("You've run into bankruptcy:(")
+            if input("Hit y to play again. \nYou will restart with 100 dollars \n") == 'y':
+                bet=100
+                return play()
+            else:
+                return
+        else:
+            print("You have "+str(bet)+" dollars remaining.")
+            return play()
+    if myburst==True and dealerburst == True:
+        bet=bet-userbet
+        print("Both bursted: Try Again?")
+        print("Your hand: " + str(mine)+ " Your total is: "+ str(calcmine(mine)))
+        print("Dealer hand: " + str(dealer)+ " Dealer's total is: "+ str(calcdealer(dealer)))
+        if bet<=0:
+            print("You've run into bankruptcy:(")
+            if input("Hit y to play again. \nYou will restart with 100 dollars \n") == 'y':
+                bet=100
+                return play()
+            else:
+                return
+        else:
+            print("You have "+str(bet)+" dollars remaining.")
+            return play()
+    if myburst==False and dealerburst == True:
+        bet=bet+(userbet*2)
+        print("Dealer Burst: YOU WON!")
+        print("Your hand: " + str(mine)+ " Your total is: "+ str(calcmine(mine)))
+        print("Dealer hand: " + str(dealer)+" Dealer's total is: "+ str(calcdealer(dealer)))
+        if bet<=0:
+            print("You've run into bankruptcy:(")
+            if input("Hit y to play again. \nYou will restart with 100 dollars \n") == 'y':
+                bet=100
+                return play()
+            else:
+                return
+        else:
+            print("You have "+str(bet)+" dollars remaining.")
+            return play()
+    if myvalue<dealervalue:
+        bet-=userbet
+        print("You Lose")
+        print("Your hand: " + str(mine)+ " Your total is: "+ str(calcmine(mine)))
+        print("Dealer hand: " + str(dealer)+" Dealer's total is: "+ str(calcdealer(dealer)))
+        if bet<=0:
+            print("You've run into bankruptcy:(")
+            if input("Hit y to play again. \nYou will restart with 100 dollars \n") == 'y':
+                bet=100
+                return play()
+            else:
+                return
+        else:
+            print("You have "+str(bet)+" dollars remaining.")
+            return play()
+    elif myvalue==dealervalue:
+        bet=bet-userbet
+        print("You Lose")
+        print("Your hand: " + str(mine)+ " Your total is: "+ str(calcmine(mine)))
+        print("Dealer hand: " + str(dealer)+" Dealer's total is: "+ str(calcdealer(dealer)))
+        if bet<=0:
+            print("You've run into bankruptcy:(.")
+            if input("Hit y to play again. \nYou will restart with 100 dollars \n") == 'y':
+                bet=100
+                return play()
+            else:
+                return 
+        else:
+            print("You have "+str(bet)+" dollars remaining.")
+            return play()
+    else:
+        bet=bet+(userbet*2)
+        print ("You Win")
+        print("Your hand: " + str(mine)+ " Your total is: "+ str(calcmine(mine)))
+        print("Dealer hand: " + str(dealer)+ " Dealer's total is: "+ str(calcdealer(dealer)))
+        if bet<=0:
+            print("You've run into bankruptcy:(")
+            if input("Hit y to play again. \nYou will restart with 100 dollars \n") == 'y':
+                bet=100
+                return play()
+            else:
+                return
+        else:
+            print("You have "+str(bet)+" dollars remaining.")
+            return play()
+
+
+def deal(deck):
+    temp= deck[random.randint(0, len(deck)-1)]
+    deck.remove(temp)
+
+    return temp
+
+
+def calcmine(mine):
+    total = 0
+    ace = False
+
+    for i in mine:
+        lastletter=i[-1]
+
+
+        if lastletter=="J" or lastletter=="Q" or lastletter=="K":
+            lastletter = 10
+        elif lastletter=="A":
+            lastletter=11
+            ace=True
+        total+=int(lastletter)
+    if ace == True and total>21:
+        total-= 10
+
+    return total
+
+
+def calcdealer(dealer):
+    total = 0
+    ace = False
+
+    for i in dealer:
+        lastletter=i[-1]
+
+        if lastletter=="J" or lastletter=="Q" or lastletter=="K":
+            lastletter = 10
+        elif lastletter=="A":
+            lastletter=11
+            ace=True
+        total+=int(lastletter)
+    if ace == True and total>21:
+        total-= 10
+
+    return total
+
+
+def newdeck():
+    deck = []
+    numbers = {'A':'A','2':'2','3':'3','4':'4','5':'5','6':'6','7':'7','8':'8','9':'9','10':'10','J':'J','Q':'Q','K':'K'}
+    for i in numbers:
+        deck.append("S"+i)
+    for i in numbers:
+        deck.append("H"+i)
+    for i in numbers:
+        deck.append("C"+i)
+    for i in numbers:
+        deck.append("D"+i)
+    return deck
+
+start()
